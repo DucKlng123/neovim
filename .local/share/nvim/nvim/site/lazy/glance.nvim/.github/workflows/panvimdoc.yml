@@ -1,0 +1,23 @@
+name: panvimdoc
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "README.md"
+
+jobs:
+  docs:
+    runs-on: ubuntu-22.04
+    name: pandoc to vimdoc
+    steps:
+      - uses: actions/checkout@v3
+      - name: panvimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: glance
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(docs): auto generate docs"
+          branch: ${{ github.head_ref }}
